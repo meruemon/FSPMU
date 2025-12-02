@@ -116,8 +116,6 @@ if args.method=="scrub":
     args.e_r=[15]
     print('--in==scrub')
 noise_rate_name=str(args.noise_rate).replace('.', '_')
-# dir_name='../../result/pred_{}/{}/{}/{}_{}/{}_seed_{}/'.\
-#     format(args.pred, args.method, args.dataset, args.noise_mode, noise_rate_name, args.model, args.seed)
 dir_name = f'./net/per_{args.tsne_per}/lr_{args.tsne_lr}/pretrain/'
 os.makedirs(dir_name, exist_ok=True)
 
@@ -129,16 +127,9 @@ def create_model():
     temp_model = temp_model.cuda()
     return temp_model
 
-# checkpoint = torch.load('../../weight/{}/net_seed{}/net/weight_save_{:04d}.tar'.format(file_name, args.seed, args.epochs))
 checkpoint = torch.load(f'./weight_save_15.tar')
 model = create_model()
 model.load_state_dict(checkpoint['state_dict'])
-# checkpoint = torch.load('./net/weight_save_5.tar')
-# model1 = create_model()
-# model1.load_state_dict(checkpoint['state_dict'])
-# checkpoint = torch.load('./net/weight_save_15.tar')
-# model2 = create_model()
-# model2.load_state_dict(checkpoint['state_dict'])
 
 noise_file = f'../../weight/{args.model}_{args.dataset}_{args.noise_rate}_{args.noise_mode}/net_seed{args.seed}/{args.noise_rate:.2f}_{args.noise_mode}.json'
 loader = datasets.cifar_dataloader(args.dataset,r=args.noise_rate,noise_mode=args.noise_mode,
@@ -174,7 +165,4 @@ with torch.no_grad():
         local_encoder.append(F.normalize(encoder, dim=1)) 
 centers = mean(args, local_cluster_labels, local_encoder, correct_retain_loader)
 mode='encoder'
-# feature_vector(args, model1, eval_retain_loader, eval_forget_loader, epoch=5, data='forget', modes=mode, centers=centers)
-
-# feature_vector(args, model2, eval_forget_loader, epoch=15, data='forget', modes=mode, centers=centers)
 feature_vector(args, model, eval_forget_loader, epoch=15, data='forget', modes=mode, centers=centers)

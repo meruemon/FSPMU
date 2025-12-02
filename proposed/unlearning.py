@@ -353,9 +353,9 @@ if args.method=="scrub":
     args.e_r=[15]
 
 #loaderの生成
+
 if args.pretrain_method==None: noise_file = f'../../weight/unlearning/{args.model}_{args.dataset}_{args.noise_rate}_{args.noise_mode}/net_seed{args.seed}/{args.noise_rate:.2f}_{args.noise_mode}.json'
-elif args.pretrain_method=='DivideMix':  noise_file = f'../../weight/{args.pretrain_method}/seed_{args.seed}/{args.dataset}_{args.noise_rate}_{args.noise_mode}/noise_file.json'
-elif args.pretrain_method=='ProMix':  noise_file = f'../../weight/{args.pretrain_method}/{args.dataset}_{args.noise_rate}_{args.noise_mode}/noise_file.json'
+elif args.pretrain_method=='DivideMix' or args.pretrain_method=='ProMix':  noise_file = f'../../weight/{args.pretrain_method}/seed_{args.seed}/{args.dataset}_{args.noise_rate}_{args.noise_mode}/noise_file.json'
 elif args.pretrain_method=='LongReMix': noise_file = '../../weight/LongReMix/{}/{:.2f}_{}.json'.format(args.dataset, args.noise_rate, args.noise_mode)
 
 print(f'noise file name:\n{noise_file}')
@@ -396,16 +396,15 @@ elif args.pretrain_method=='ProMix':
     acc1 = test(0, model1, test_loader)
     acc2 = test(0, model2, test_loader)
     if acc1>acc2:
-        cheackpoint=checkpoint1.copy()
+        checkpoint=checkpoint1.copy()
     else:
         checkpoint=checkpoint2.copy()
     model = create_model()
     model.load_state_dict(checkpoint['state_dict'])
     optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
-    optimizer.load_state_dict(checkpoint['optimizer'])
     prob_file = '../../weight/%s/seed_%d/%s_%.1f_%s/prob_file.txt'%(args.pretrain_method, args.seed, args.dataset,args.noise_rate,args.noise_mode)
     del model1, model2, checkpoint1, checkpoint2
-elif args.pretrain_method=='LongRe-Mix': 
+elif args.pretrain_method=='LongReMix': 
     noise_rate = float(str(args.noise_rate).replace('_','.'))
     print('../LongReMix-main/hcs/hcs_{}_{:.2f}_{}_cn5_run0.pth.tar'.format(args.dataset, noise_rate,args.noise_mode))
     # checkpoint = torch.load('../LongReMix-main/hcs/hcs_{}_{:.2f}_{}_cn5_run0.pth.tar'.format(args.dataset, noise_rate,args.noise_mode))
@@ -420,10 +419,8 @@ elif args.pretrain_method=='LongRe-Mix':
     optimizer = optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
     if acc1>acc2:
         model.load_state_dict(checkpoint['state_dict1'])
-        optimizer.load_state_dict(checkpoint['optimizer1'])
     else:
         model.load_state_dict(checkpoint['state_dict2'])
-        optimizer.load_state_dict(checkpoint['optimizer2'])
     prob_file = ''
     del model1, model2, checkpoint
 
@@ -440,7 +437,7 @@ model_firstgmm = create_model()
 if args.pretrain_method!=None and args.pred=='gmm' and not args.scratch:
     
     optimizer_firstgmm = optim.SGD(model_firstgmm.parameters(), lr=0.1, momentum=0.9, weight_decay=5e-4)
-    if args.dataset=='cifar10': epochs_ = 1
+    if args.dataset=='cifar10': epochs_ = 10
     else: epochs_ = 30
     for epoch in range(1,  epochs_+ 1):
         lr=args.lr
@@ -549,11 +546,11 @@ if not args.scratch:
     acc_test = test(0, model_s, test_loader)
     acc_tests.append(100-acc_test)
 
-    result = 'test_acc:\n original={:.2f}\t propose(last)={:.2f} propose(best)={:.2f}\ntraining time={:.2f}%'.format(100 - acc_tests[-1], 100-acc_tests[-1], 100 - np.min(acc_tests[1:]), t2 - t1)
-    parameter=f'model:{args.model}, ,dataset:{args.dataset}, method:{args.method}, kd_T:{args.kd_T}, f_bs:{args.forget_bs}, r_bs:{args.retain_bs},\
-        alpha:{args.alpha}, beta:{args.beta}, gamma:{args.gamma}, delta:{args.delta}, zeta:{args.zeta}, eta:{args.eta}'
-
+    result = 'test_acc:\n original={:.2f}\t propose(last)={:.2f} propose(best)={:.2f}\ntraining time={:.2f}s'.format(100 - acc_tests[-1], 100-acc_tests[-1], 100 - np.min(acc_tests[1:]), t2 - t1)
+    parameter=f'model:{args.model}, dataset:{args.dataset}, gamma:{args.gamma}, delta:{args.delta}, zeta:{args.zeta}'
+    acc_tests = [100-i for i in acc_tests]
     with open(file_name, 'a') as f:
+        f.write(acc_tests)
         f.write(f'\n{args.noise_mode}.{args.noise_rate}:{parameter}\n')
         f.write(result)
     #configファイル(argsの保存ファイル)の作成
@@ -561,8 +558,10 @@ if not args.scratch:
     with open("%s/config.json"%(dir_name), mode="w") as f:
         json.dump(args.__dict__, f, indent=4)
 
-    best_index=np.argmin(acc_tests[1:])
-    print(f'\n{args.noise_mode}.{args.noise_rate}:{parameter}:best_index{best_index}\n{result}\n')
+    best_index=np.argmax(acc_tests[1:])
+
+    print(acc_tests)
+    print(f'\n{args.noise_mode}{args.noise_rate}:{parameter}:best_epoch={best_index}\n{result}\n')
     with open('score.txt', 'a') as f:
         f.write(f'\n{args.noise_mode}.{args.noise_rate}:{parameter}:best_index{best_index}\n{result}\n')
 

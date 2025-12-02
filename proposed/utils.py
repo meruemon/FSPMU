@@ -290,7 +290,6 @@ def feature_vector(args, model_net, retain_loader, forget_loader=None, num_class
             title_name='{}_mode_{}_label_{}_{}epoch'.format(data, mode, clean_or_noise, epoch)
             # plt.title(title_name)
             print('plot end')
-            # print(f'label_and_color:{label_color_dict}')
             print('prot end:\t title={}\n'.format(title_name))
             if save_flg:
                 plot_path=args.dir_name+'/TSNE/'
