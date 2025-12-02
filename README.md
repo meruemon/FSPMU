@@ -27,11 +27,14 @@ The model training process consists of two main steps: **Pre-trained Model Train
 You indicate dataeset and noise_mode, noise-rate and run by follows:
 
 ```shell
-# python main.py --dataset cifar100 noise_mode sym --noise_rate 0.5
+
 ```
 
 ### Step 2: Model Unlearning
+You indicate pre-trained method, dataset and noise_mode to select model to do unlearning. Run by follows:
+```shell
 
+```
 
 
 
