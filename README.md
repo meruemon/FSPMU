@@ -11,10 +11,7 @@ This repository contains the implementation of **FSPMU**,
 - Python==3.10.12
 - CUDA==12.4
 - PyTorch==2.1.0a0
-- tqdm==4.64.0
-- torchsummary==1.5.1
-- loguru
-- sentence-transformer==2.2.2
+
 
 ## Datasets
 We utilized the CIFAR-10 and CIFAR-100. 
@@ -40,7 +37,8 @@ You indicate dataeset and noise_mode, noise-rate and run by follows:
 
 
 ## Results
-
+![CIFAR result table](images/Result_CIFAR10.png)
+![CIFAR result table](images/Result_CIFAR100.png)
 
 ## Paper Status
 
