@@ -21,7 +21,7 @@ We utilized the CIFAR-10 and CIFAR-100.
 
 ## Model Training
 
-The model training process consists of two main steps: **Pre-trained Model Training** and **Model Unlearning**.
+The model training process consists of two main steps: **Pre-trained Model Training** and **Model Unlearning**. A framework for unlearning for forgetting noisy labels. The proposed method enables post-hoc model improvement by forgetting incorrect information through feature-based unlearning and recovering correct knowledge using the same feature representations. 
 
 ---
 
