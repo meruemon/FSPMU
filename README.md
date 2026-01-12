@@ -40,10 +40,10 @@ python unlearning.py --dataset cifar10 --noise_rate 0.5 --noise_mode sym --metho
 "--pred" is either to use Gausian Mixture Model. If you want to experience "known noisy label", you would set "--pred" to "None".
 
 ## Parameters
-| | $\delta$ | $\zeta$ | $\gamma$ | t | batch size(forget set) | batch size(retain set) |
+| Method | $\delta$ | $\zeta$ | $\gamma$ | $t$ | batch size (forget set) | batch size (retain set) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | Original | 500 | 0.5 | 1 | 0.25 | 512 | 128 |
 | NLL | 1 | 1 | 5 | 0.25 | 512 | 128 |
-
 ## Results
 ![CIFAR result table](images/Result_CIFAR10.png)
 ![CIFAR result table](images/Result_CIFAR100.png)
