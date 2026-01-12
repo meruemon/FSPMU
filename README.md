@@ -24,20 +24,25 @@ The model training process consists of two main steps: **Pre-trained Model Train
 
 ### Step 1: Pre-trained Model Training
 
-You indicate dataeset and noise_mode, noise-rate and run by follows:
-
+You indicate dataeset and noise_mode, noise-rate.
+For example, to run an experiment for cifar-10, with 50% symmetric noise, run:
 ```shell
-
+python main.py --dataset cifar10 --noise_rate 0.5 --noise_mode sym --save True --tsne True
 ```
 
 ### Step 2: Model Unlearning
-You indicate pre-trained method, dataset and noise_mode to select model to do unlearning. Run by follows:
+You indicate pre-trained method, dataset and noise_mode to select model to do unlearning.
+For example, to run an experiment for cifar-10, with 50% symmetric noise, run:
 ```shell
+python unlearning.py --dataset cifar10 --noise_rate 0.5 --noise_mode sym --method pro  --pred gmm
 
 ```
+"--pred" is either to use Gausian Mixture Model. If you want to experience "known noisy label", you would set "--pred" to "None".
 
-
-
+## Parameters
+| | $\delta$ | $\zeta$ | $\gamma$ | t | batch size(forget set) | batch size(retain set) |
+| Original | 500 | 0.5 | 1 | 0.25 | 512 | 128 |
+| NLL | 1 | 1 | 5 | 0.25 | 512 | 128 |
 
 ## Results
 ![CIFAR result table](images/Result_CIFAR10.png)
