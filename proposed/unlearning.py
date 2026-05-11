@@ -281,7 +281,7 @@ parser.add_argument('--noise_mode', type=str, default='asym', choices=['sym', 'a
 parser.add_argument('--method', type=str, default='scrub')
 parser.add_argument('--e_n', nargs='+', type=int, default=[5])
 parser.add_argument('--e_r', nargs='*', type=int, default=[15])
-parser.add_argument('--tsne', type=int, default=0, help='0:none tsne, 1:after e_n and e_r tsne, 2:after e_n and e_r andb est model tsne')
+parser.add_argument('--tsne', type=int, default=0, help='0:none tsne, 1:after e_n and e_r tsne, 2:after e_n and e_r and best model tsne')
 parser.add_argument('--save', type=bool, default=False, help='model_weight save')
 parser.add_argument('--gpu', default=0, type=int, help='use gpu-id')
 parser.add_argument('--forget_bs', type=int, default=512)

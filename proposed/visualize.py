@@ -148,10 +148,10 @@ for _,l,_ in train_loader:
     train_labels.extend(l.numpy())
 #各クラスのサンプル数の出力
 print(Counter(train_labels))
-#格納されてるサプル数数の出力
+#格納されてるサプル数の出力
 print(f'forget sample num:{len(correct_forget_loader.dataset)}')
 print(f'retain sample num:{len(correct_retain_loader.dataset)}')
-print(f'test sanple num:{len(test_loader.dataset)}')
+print(f'test sample num:{len(test_loader.dataset)}')
 if args.noise_mode=='SDN':
     args.num_classes = 20 
 
