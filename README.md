@@ -88,9 +88,8 @@ Original and Noisy Label Learning(NLL) use each following parameter.
 | Original | 500 | 0.5 | 1 | 0.25 | 512 | 128 |
 | NLL | 1 | 1 | 5 | 0.25 | 512 | 128 |
 ## Results
-CIFAR10
-## 1枚目
 
+noise Known
 ### CIFAR-10
 
 | Method | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% | Asym. |
@@ -125,9 +124,7 @@ CIFAR10
 | LongReMix+proposed | 79.24 | 77.94 | 77.27 | 75.86 | 74.22 | 75.13 | 67.27 | 58.13 | 45.36 | 75.01 |
 ||||||||||||
 
-CIFAR100
-## 2枚目
-
+GMM-based
 ### CIFAR-10
 
 | Method | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% | Asym. |
