@@ -158,13 +158,25 @@ GMM-based
 | LongReMix | 75.84 | 75.03 | 74.44 | 73.69 | 71.41 | 68.73 | 62.89 | 52.44 | 31.53 | 52.15 |
 | LongReMix+proposed | 78.61 | 78.17 | 76.04 | 77.17 | 75.11 | 73.75 | 66.02 | 56.31 | 34.06 | 53.01 |
 ||||||||||||
+
 ## Paper Status
-The paper is currently under review at IEEE Access.
 
-Note:
-As the manuscript is under peer review, the repository is currently in a limited-release state. Some details, including datasets, trained models, and complete documentation, will be provided after the review process concludes.
+This paper has been published in IEEE Access.
 
+S. Yamamoto, S. Yoshida, and M. Muneyasu, "Feature Space-Preserving Machine Unlearning for Robust Image Classification With Noisy Labels," IEEE Access, vol. 14, pp. 45449–45463, 2026, doi: 10.1109/ACCESS.2026.3676403.
 
 ## Citation
 
-A BibTeX entry will be provided here upon acceptance.
+If you find this work useful, please cite our paper:
+
+```bibtex
+@ARTICLE{11450351,
+  author={Yamamoto, Shohei and Yoshida, Soh and Muneyasu, Mitsuji},
+  journal={IEEE Access}, 
+  title={Feature Space-Preserving Machine Unlearning for Robust Image Classification With Noisy Labels}, 
+  year={2026},
+  volume={14},
+  number={},
+  pages={45449-45463},
+  keywords={Noise measurement;Noise;Training;Data models;Contrastive learning;Standards;Image classification;Representation learning;Semisupervised learning;Optimization;Learning with noisy labels;machine unlearning;image classification},
+  doi={10.1109/ACCESS.2026.3676403}}
